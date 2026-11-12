@@ -1,0 +1,7 @@
+# Length tuning: a single-ended meander on one segment of a net, to a total length in mm
+load board.kicad_pcb
+length Net-(U401-Q0)
+amp 0.2 0.5 0.3
+tune single 195.15 142.9 193.05 145 In2.Cu 12.07 Net-(U401-Q0)
+length Net-(U401-Q0)
+save out.kicad_pcb

@@ -1,0 +1,10 @@
+# A short single-ended track, walkaround, finished on a pad
+load board.kicad_pcb
+mode single
+policy walk
+size 0.1 0
+start 194.95 148.25 F.Cu CLK_SEL
+follow  193.250 149.950 192.750 149.950
+finish 192.4 150.525
+abort
+save out.kicad_pcb

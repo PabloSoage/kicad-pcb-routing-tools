@@ -1,0 +1,18 @@
+# Differential pair with a global path: walkaround under the BGA, then shove, waypoints from waypoints.py
+load board.kicad_pcb
+mode dp
+policy walk
+size 0.09 0.12
+start 162.5 144.5 In2.Cu ADCR_DCO_P
+follow 163.0 140.6 163.6 140.0 166.0 140.0
+finish 167.7 139.9
+abort
+policy shove
+size 0.10 0.15
+start 167.7 139.9 In5.Cu ADCR_DCO_P
+follow 168.4 140.2  168.850 140.850 171.100 140.850 175.250 144.950 176.900 145.000 182.850 150.950 185.800 152.100 187.2 152.1 187.2 153.3
+finish 186.9 154.3
+abort
+length ADCR_DCO_P
+length ADCR_DCO_N
+save out.kicad_pcb

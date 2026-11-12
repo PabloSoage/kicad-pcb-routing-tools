@@ -1,0 +1,5 @@
+* text=auto
+*.sh text eol=lf
+*.pns text eol=lf
+*.def text eol=lf
+*.png binary
