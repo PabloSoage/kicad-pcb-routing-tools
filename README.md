@@ -61,6 +61,12 @@ layout/
     pdn2.py               PDN impedance at a BGA's balls from the copper, caps and planes
     irdrop.py             DC drop from a rail's source to the BGA's balls
     segadd.py segdel.py ripbox.py freespot.py viaspot.py edit.py fp.py   small editors and finders
+    keepnets.py           take only the target nets' copper from a KRT route.py output (it re-grades neighbours)
+    addnew.py             add only the new tracks/vias of a net (joining a pad to a big rail)
+    greedyplace.py        place small parts one by one at the free spot nearest a target
+    setpad.py             give pads a net by text (trial pin swaps before the schematic changes)
+    tab.py                grow the outline and its edge zones by a rectangle (a connector tab)
+    coup.py netcu.py netdiff.py padnet.py graft.py   pair coupling, net copper in a box, changed nets, pads off nets, copy a pair under new names
   pnsdrive/
     pns_drive.cpp         KiCad's PNS router driven by a text script (GPL, builds in KiCad's tree)
     CMakeLists.fragment.txt, kicad-build.def, pns.sh, examples/*.pns
@@ -72,6 +78,7 @@ sim/
   field_solver.py         2-D finite-difference solver: microstrip, stripline, coupled pairs
   field_solver8.py        the 8-layer stack-up's widths (JLC08161H-2116C)
   lvds_eye.py             eye of a pair as routed (field-solved sections) vs ideal, in ngspice
+  stubsim.py              the same with an open branch to an unfitted part (assembly options), or through it
   sma_launch.py           edge-SMA launch in openEMS (S11/S21)
 ```
 
@@ -204,6 +211,19 @@ passable at a cost. It prints `move X Y` lines for a `follow`, and with `--png` 
 `pns_drive`.*
 
 When there is no path, `--png` draws the blocked map anyway, so you can see what is in the way.
+
+## KiCadRoutingTools: pitfalls found
+
+- Without `--layers`, `route.py` also routes on plane layers (a signal ran 50 mm on a GND plane):
+  name the signal layers.
+- It rips and re-grades neighbours to make room, even ones it was not asked to route. `--max-ripup 0`
+  stops the rip-up; `keepnets.py` / `addnew.py` keep only what you asked for.
+- `KICAD_IMPROVEMENT_GATE=0` stops it reverting the whole output when a re-graded net breaks. A
+  reverted run still writes the input board as its output: read the log, not the file.
+- KiCad's `(locked yes)` does not make copper an obstacle to it.
+- It can leave copper on `unconnected-*` nets; strip it.
+- A pair whose legs end up on different layers must be matched in delay (`lvds_eye.py` prints P-N),
+  not length: microstrip is faster than stripline.
 
 ## Measuring
 
