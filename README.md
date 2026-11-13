@@ -80,6 +80,9 @@ sim/
   lvds_eye.py             eye of a pair as routed (field-solved sections) vs ideal, in ngspice
   stubsim.py              the same with an open branch to an unfitted part (assembly options), or through it
   sma_launch.py           edge-SMA launch in openEMS (S11/S21)
+render/
+  step2glb.py             a STEP assembly (a carrier board, an enclosure) to glTF with its colours, for Blender
+                          next to `kicad-cli pcb export glb` (OpenCascade bindings: pip install cadquery-ocp)
 ```
 
 Many defaults are the kv260-ias2rf board's: its net names (`ADCR_*`, `LINK_RX_*`), its FPGA
